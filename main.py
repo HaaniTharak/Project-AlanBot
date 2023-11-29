@@ -71,3 +71,4 @@ trueCount = ic.calcTrueCount(int(count), int(cardsInShoe))
 print("True count is " + str(trueCount) + "Numebr of cards left in shoe are " + str(cardsInShoe) + " dealers total is " + str(dealerInfo) + " Player ones total is " + str(player1Info) )
 
 #Send data to micro================================================================
+uart.send(dealerInfo, player1Info, player2Info, player3Info, trueCount)
