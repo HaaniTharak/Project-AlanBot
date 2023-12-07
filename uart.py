@@ -17,9 +17,9 @@ def send(trueCount, player1Info, dealerInfo):
     elif trueCount > 0:
         trueCount = '0' + str(trueCount)
     elif trueCount < 0 and trueCount > -10:
-        trueCount = '1'+ '0' + str(trueCount)
+        trueCount = '1'+ '0' + str(abs(trueCount))
     else:
-        trueCount = '1' + str(trueCount)
+        trueCount = '1' + str(abs(trueCount))
 
 
     baudrate = 9600
@@ -32,18 +32,16 @@ def send(trueCount, player1Info, dealerInfo):
 
     # while True:
     #     try:
-    #         inStrin = input("Press Enter to Send: ")
-    x = 5
-    while x > 0:        
-        message = trueCount + player1Info + str(dealerInfo) + "\r"
-        print(message)
-        #lengthpref = f"{len(message):03d}"
+    #         inStrin = input("Press Enter to Send: ")    
+    message = trueCount + player1Info + str(dealerInfo) + "\r"
+    #print(message)
+    #lengthpref = f"{len(message):03d}"
+    while (serialString) != message:
         serialPort.write((message).encode())
-        time.sleep(.5)
-        #print("Just Sent")
+        time.sleep(.75)
+        print("Just Sent:", message)
         serialString = serialPort.readline()
-        #print("RECEIVED: ", serialString) 
-        x = x-1
-        
-    serialPort.close()
+        serialString = serialString.decode('ascii') + "\r"
+        print("RECEIVED: ", serialString)
+    
     return
